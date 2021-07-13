@@ -4,12 +4,21 @@ class Pessoa:
         self.idade = idade
         self.nome = nome
         self.filhos = list(filhos)
-    def cumprimentar(self): #criação de mensagem personalizada
+    def cumprimentar(self): #criação de mensagem personalizada - o método cumprimentar já auto completa com self
         return f'Olá {id(self)}'
+
+    @staticmethod #método de classe
+    def metodo_estatico(): #não auto completa com self - funciona simplesmente como uma função atrelada à classe Pessoa - independe do objeto
+        return 42 #ação que independe da classe ou do objeto
+
+    @classmethod #para acessar dados da própria classe
+    def nome_e_atributos_de_classe(cls): #já auto completa com cls (abreviação de class - que não pode ser usado, por ser uma palavra reservada)
+        return f'{cls} - olhos {cls.olhos}' #imprime o nome da classe e o atributo olhos
+
 if __name__ == '__main__': #atribuições de valores com condicional
     renata = Pessoa(nome='Renata')
     erick = Pessoa(renata,nome='Erick')
-    print(Pessoa.cumprimentar(erick))
+    print(Pessoa.cumprimentar(erick)) # definido sem decorator, é obrigatório a identificação do objeto
     print(id(erick))
     print(erick.cumprimentar())
     print(erick.nome)
@@ -31,3 +40,5 @@ if __name__ == '__main__': #atribuições de valores com condicional
     print(id(erick.olhos)) # como o atributo é o mesmo, terá o mesmo id para todos
     print(id(renata.olhos), id(erick.olhos), id(Pessoa.olhos)) #terá o mesmo id, tanto para objeto quanto para classe
     # o __dict__ não possui o atributo de classe, ou seja, olhos, somente os atributos de instância
+    print(Pessoa.metodo_estatico(), erick.metodo_estatico()) #como é método estático, não precisa identificar o objeto e funciona para objeto ou classe
+    print(Pessoa.nome_e_atributos_de_classe(), erick.nome_e_atributos_de_classe()) #imprime o nome da classe e atributo olhos para os dois
