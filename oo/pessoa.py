@@ -15,8 +15,12 @@ class Pessoa:
     def nome_e_atributos_de_classe(cls): #já auto completa com cls (abreviação de class - que não pode ser usado, por ser uma palavra reservada)
         return f'{cls} - olhos {cls.olhos}' #imprime o nome da classe e o atributo olhos
 
+class Homem(Pessoa): #Pessoa é a classe pai de Homem - herda todos os seus atributos e métodos
+    pass
+
 if __name__ == '__main__': #atribuições de valores com condicional
     renata = Pessoa(nome='Renata')
+    renata = Homem(nome='Renata') #por conta da herança, podemos substituir o tipo do objeto renata de Pessoa para Homem
     erick = Pessoa(renata,nome='Erick')
     print(Pessoa.cumprimentar(erick)) # definido sem decorator, é obrigatório a identificação do objeto
     print(id(erick))
@@ -42,3 +46,8 @@ if __name__ == '__main__': #atribuições de valores com condicional
     # o __dict__ não possui o atributo de classe, ou seja, olhos, somente os atributos de instância
     print(Pessoa.metodo_estatico(), erick.metodo_estatico()) #como é método estático, não precisa identificar o objeto e funciona para objeto ou classe
     print(Pessoa.nome_e_atributos_de_classe(), erick.nome_e_atributos_de_classe()) #imprime o nome da classe e atributo olhos para os dois
+    pessoa = Pessoa('Anonimo')
+    print(isinstance(pessoa,Pessoa)) #Verdadeiro, pois pessoa é do tipo Pessoa
+    print(isinstance(pessoa, Homem)) # Falso, pois as pessoas não precisam ser homens
+    print(isinstance(renata,Pessoa)) # Verdadeiro, pois renata pertence a pessoa, pois pertence a homem
+    print(isinstance(renata, Homem)) # Verdadeiro, pois renata é do tipo Homem
